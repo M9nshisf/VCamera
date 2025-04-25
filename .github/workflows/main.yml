@@ -1,32 +1,26 @@
-package virtual.camera.app.app
+name: Android CI
 
-import android.annotation.SuppressLint
-import android.app.Application
-import android.content.Context
-import com.hack.opensdk.HackApplication
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
-/**
- *
- * @Description:
- * @Author: M9nshisf
- * @CreateDate: 2025/4/25 21:21
- */
-class App : HackApplication() {
+jobs:
+  build:
 
-    companion object {
+    runs-on: ubuntu-latest
 
-        @SuppressLint("StaticFieldLeak")
-        @Volatile
-        private lateinit var mContext: Context
+    steps:
+    - uses: actions/checkout@v4
+    - name: set up JDK 11
+      uses: actions/setup-java@v4
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: gradle
 
-        @JvmStatic
-        fun getContext(): Context {
-            return mContext
-        }
-    }
-
-    override fun attachBaseContext(base: Context?) {
-        super.attachBaseContext(base)
-        mContext = base!!
-    }
-}
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+    - name: Build with Gradle
+      run: ./gradlew build
