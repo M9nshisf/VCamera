@@ -8,8 +8,8 @@ import com.hack.opensdk.HackApplication
 /**
  *
  * @Description:
- * @Author: wukaicheng
- * @CreateDate: 2021/4/29 21:21
+ * @Author: M9nshisf
+ * @CreateDate: 2025/4/25 21:21
  */
 class App : HackApplication() {
 
